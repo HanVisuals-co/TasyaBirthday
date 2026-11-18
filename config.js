@@ -20,8 +20,8 @@ const CONFIG = {
   // Taruh file .mp3 lagu kalian di folder assets/audio/ lalu tulis namanya di sini,
   // contoh: "assets/audio/lagu-kita.mp3".
   // Jika dibiarkan kosong (""), website akan otomatis memutar melodi kotak musik lembut!
-  musicUrl: "",
-  musicTitle: "Kotak Musik Ihan",
+  musicUrl: "assets/audio/marry-your-daughter.m4a",
+  musicTitle: "Marry Your Daughter - Brian McKnight",
 
   // 4. Teks Sampul Scrapbook
   scrapbookTitle: "Happy birthday,",
