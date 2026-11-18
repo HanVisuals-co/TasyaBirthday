@@ -433,20 +433,56 @@ const PhotoboothModule = (() => {
     window.print();
   }
 
-  function sendToWhatsApp() {
-    downloadStrip();
+  async function sendToWhatsApp() {
+    const canvas = document.getElementById('photostrip-canvas');
+    if (!canvas) return;
+
     const pbConfig = CONFIG.photobooth || {};
     const waNum = pbConfig.whatsappNumber || '6281334535073';
-    const msg = encodeURIComponent(
+    const rawMsg =
       pbConfig.whatsappMessage ||
-      'Haloo Ihan! Makasih kado Hirono Harry Potter-nya, ini hasil photobooth aku!'
-    );
-
+      'Haloo Ihan! Makasih banyak kado Hirono Harry Potter-nya, ini hasil photobooth aku!';
     const statusEl = document.getElementById('pb-status');
-    if (statusEl) {
-      statusEl.textContent = 'Foto strip sudah ter-download! Tinggal lampirkan fotonya di chat WhatsApp ke Ihan.';
+
+    // 1. Coba Web Share API (di HP, langsung melampirkan file foto ke WhatsApp)
+    try {
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+      if (blob && navigator.canShare && navigator.share) {
+        const file = new File([blob], 'tasya-photobooth.png', { type: 'image/png' });
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            files: [file],
+            title: 'Photobooth Tasya',
+            text: rawMsg
+          });
+          if (statusEl) {
+            statusEl.textContent = 'Foto berhasil dibagikan ke Ihan!';
+          }
+          return;
+        }
+      }
+
+      // 2. Fallback Desktop: Salin gambar ke clipboard + download + buka WhatsApp
+      if (blob && navigator.clipboard && window.ClipboardItem) {
+        try {
+          await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+          if (statusEl) {
+            statusEl.textContent = 'Foto sudah disalin ke clipboard & ter-download! Tinggal Ctrl+V (Tempel) di chat WhatsApp Ihan.';
+          }
+        } catch {
+          if (statusEl) {
+            statusEl.textContent = 'Foto sudah ter-download! Tinggal lampirkan fotonya di chat WhatsApp Ihan.';
+          }
+        }
+      } else if (statusEl) {
+        statusEl.textContent = 'Foto sudah ter-download! Tinggal lampirkan fotonya di chat WhatsApp Ihan.';
+      }
+    } catch (err) {
+      if (err && err.name === 'AbortError') return;
     }
 
+    downloadStrip();
+    const msg = encodeURIComponent(rawMsg);
     window.open(`https://wa.me/${waNum}?text=${msg}`, '_blank', 'noopener');
   }
 
