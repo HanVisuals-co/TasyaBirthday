@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kejutan Ulang Tahun Spesial | Ihan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@500;600;700&family=Nunito:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=10">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+  <!-- Lapisan Latar Belakang Animasi Lebah & Balon Merah Pooh -->
+  <div class="ambient-layer" aria-hidden="true">
+    <!-- Balon Merah Kiri -->
+    <svg class="ambient-balloon balloon-left" viewBox="0 0 80 150">
+      <path d="M40 82 Q34 108 42 128 T38 148" fill="none" stroke="#785842" stroke-width="2" stroke-linecap="round"/>
+      <ellipse cx="40" cy="42" rx="30" ry="38" fill="#D3383A" stroke="#4A301F" stroke-width="3"/>
+      <ellipse cx="29" cy="28" rx="7" ry="12" fill="#F28587" opacity="0.65" transform="rotate(-18 29 28)"/>
+      <polygon points="35,80 45,80 40,86" fill="#D3383A" stroke="#4A301F" stroke-width="2"/>
+    </svg>
+
+    <!-- Balon Merah Kanan -->
+    <svg class="ambient-balloon balloon-right" viewBox="0 0 80 150">
+      <path d="M40 82 Q46 108 38 128 T42 148" fill="none" stroke="#785842" stroke-width="2" stroke-linecap="round"/>
+      <ellipse cx="40" cy="42" rx="28" ry="36" fill="#D3383A" stroke="#4A301F" stroke-width="3"/>
+      <ellipse cx="30" cy="28" rx="6" ry="11" fill="#F28587" opacity="0.65" transform="rotate(-18 30 28)"/>
+      <polygon points="35,78 45,78 40,84" fill="#D3383A" stroke="#4A301F" stroke-width="2"/>
+    </svg>
+
+    <!-- Lebah Madu 1 -->
+    <svg class="ambient-bee bee-1" viewBox="0 0 48 48">
+      <ellipse cx="22" cy="15" rx="7" ry="10" fill="#FFFDF8" stroke="#4A301F" stroke-width="2" transform="rotate(-20 22 15)"/>
+      <ellipse cx="29" cy="15" rx="7" ry="10" fill="#FFFDF8" stroke="#4A301F" stroke-width="2" transform="rotate(20 29 15)"/>
+      <ellipse cx="25" cy="28" rx="13" ry="10" fill="#F2B738" stroke="#4A301F" stroke-width="2.5"/>
+      <path d="M20 19v18M27 18.5v19" stroke="#4A301F" stroke-width="2.8"/>
+      <circle cx="33" cy="26" r="1.8" fill="#4A301F"/>
+      <path d="M12 28l-5 0" stroke="#4A301F" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+
+    <!-- Lebah Madu 2 -->
+    <svg class="ambient-bee bee-2" viewBox="0 0 48 48">
+      <ellipse cx="22" cy="15" rx="7" ry="10" fill="#FFFDF8" stroke="#4A301F" stroke-width="2" transform="rotate(-20 22 15)"/>
+      <ellipse cx="29" cy="15" rx="7" ry="10" fill="#FFFDF8" stroke="#4A301F" stroke-width="2" transform="rotate(20 29 15)"/>
+      <ellipse cx="25" cy="28" rx="13" ry="10" fill="#F2B738" stroke="#4A301F" stroke-width="2.5"/>
+      <path d="M20 19v18M27 18.5v19" stroke="#4A301F" stroke-width="2.8"/>
+      <circle cx="33" cy="26" r="1.8" fill="#4A301F"/>
+      <path d="M12 28l-5 0" stroke="#4A301F" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <!-- Canvas Konfeti -->
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+  <!-- Pemutar Musik Melayang -->
+  <aside id="music-player" class="music-player hidden" aria-label="Pemutar musik latar">
+    <button type="button" id="music-toggle-btn" class="music-toggle-btn" aria-label="Jeda musik latar" aria-pressed="true">
+      <svg id="music-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="10" fill="#FFFDF8" stroke="#4A301F" stroke-width="2"/>
+        <circle cx="12" cy="12" r="3" fill="#D3383A" stroke="#4A301F" stroke-width="1.5"/>
+      </svg>
+    </button>
+    <div class="music-info">
+      <span class="music-label">Sedang Diputar</span>
+      <span id="music-title" class="music-title">Kotak Musik Pooh</span>
+    </div>
+  </aside>
+
+  <main class="app-container">
+
+    <!-- ================================================================
+         LAYAR 1: GERBANG TOPLES MADU (4-DIGIT PIN)
+         ================================================================ -->
+    <section id="screen-lock" class="screen" aria-labelledby="lock-heading">
+      <div class="lock-card">
+        <div class="pooh-avatar-wrap">
+          <svg viewBox="0 0 160 160" width="130" height="130" aria-hidden="true">
+            <!-- Telinga Pooh -->
+            <circle cx="42" cy="40" r="18" fill="#F2B738" stroke="#4A301F" stroke-width="4"/>
+            <circle cx="118" cy="40" r="18" fill="#F2B738" stroke="#4A301F" stroke-width="4"/>
+            <!-- Kepala Pooh -->
+            <ellipse cx="80" cy="78" rx="46" ry="42" fill="#F2B738" stroke="#4A301F" stroke-width="4"/>
+            <!-- Alis & Mata -->
+            <path d="M56 64 Q62 60 67 64" fill="none" stroke="#4A301F" stroke-width="3" stroke-linecap="round"/>
+            <path d="M93 64 Q98 60 104 64" fill="none" stroke="#4A301F" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="62" cy="74" r="4.5" fill="#4A301F"/>
+            <circle cx="98" cy="74" r="4.5" fill="#4A301F"/>
+            <!-- Pipi Merah -->
+            <ellipse cx="48" cy="84" rx="7" ry="4" fill="#F28587" opacity="0.65"/>
+            <ellipse cx="112" cy="84" rx="7" ry="4" fill="#F28587" opacity="0.65"/>
+            <!-- Hidung & Senyum -->
+            <ellipse cx="80" cy="82" rx="7" ry="5" fill="#4A301F"/>
+            <path d="M68 94 Q80 104 92 94" fill="none" stroke="#4A301F" stroke-width="3.5" stroke-linecap="round"/>
+            <!-- Toples Madu Kecil -->
+            <path d="M56 116h48l4 28a8 8 0 0 1-8 8H60a8 8 0 0 1-8-8l4-28z" fill="#FFFDF8" stroke="#4A301F" stroke-width="3.5"/>
+            <rect x="53" y="109" width="54" height="9" rx="4" fill="#D3383A" stroke="#4A301F" stroke-width="3"/>
+            <text x="80" y="138" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="13" font-weight="700" fill="#4A301F">HUNNY</text>
+          </svg>
+        </div>
+
+        <h1 id="lock-heading" class="lock-title">Gerbang Toples Madu</h1>
+        <p class="lock-subtitle">Masukkan 4 digit kode rahasia kita untuk membuka surat dari Ihan.</p>
+
+        <div class="pin-dots" aria-label="Status PIN 4 digit">
+          <span class="pin-dot"></span>
+          <span class="pin-dot"></span>
+          <span class="pin-dot"></span>
+          <span class="pin-dot"></span>
+        </div>
+
+        <p id="pin-feedback" class="pin-feedback hint" aria-live="polite"></p>
+
+        <div class="keypad" role="group" aria-label="Keypad angka PIN">
+          <button type="button" class="key-btn" data-key="1">1</button>
+          <button type="button" class="key-btn" data-key="2">2</button>
+          <button type="button" class="key-btn" data-key="3">3</button>
+          <button type="button" class="key-btn" data-key="4">4</button>
+          <button type="button" class="key-btn" data-key="5">5</button>
+          <button type="button" class="key-btn" data-key="6">6</button>
+          <button type="button" class="key-btn" data-key="7">7</button>
+          <button type="button" class="key-btn" data-key="8">8</button>
+          <button type="button" class="key-btn" data-key="9">9</button>
+          <button type="button" class="key-btn key-action" data-key="clear">Ulang</button>
+          <button type="button" class="key-btn" data-key="0">0</button>
+          <button type="button" class="key-btn key-action" data-key="del" aria-label="Hapus satu angka">Hapus</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         LAYAR 2: AMPLOP SURAT INTERAKTIF
+         ================================================================ -->
+    <section id="screen-envelope" class="screen hidden" aria-labelledby="envelope-heading">
+      <div class="envelope-stage">
+        <h2 id="envelope-heading" class="envelope-intro">Ada sepucuk surat spesial yang dititipkan Ihan untukmu!</h2>
+
+        <button type="button" id="envelope-btn" class="envelope-wrapper" aria-label="Ketuk untuk membuka amplop surat ulang tahun">
+          <div class="envelope-flap"></div>
+          <div class="envelope-letter-preview">
+            <span>Buat kamu kesayangan aku</span>
+          </div>
+          <div class="wax-seal" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#FFFDF8"/>
+            </svg>
+          </div>
+        </button>
+
+        <p class="envelope-hint">Ketuk segel hati merah di tengah amplop untuk membukanya.</p>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         LAYAR 3: BUKU SCRAPBOOK UTAMA
+         ================================================================ -->
+    <div id="screen-scrapbook" class="screen hidden">
+      <div class="scrapbook-shell">
+
+        <!-- BAB 1: SAMPUL & PENGHITUNG WAKTU BERSAMA -->
+        <header class="scrapbook-section cover-hero">
+          <div class="cover-pooh-wrap">
+            <svg viewBox="0 0 180 180" width="150" height="150" aria-hidden="true">
+              <!-- Badan Berbaju Merah -->
+              <path d="M52 108 Q90 96 128 108 L134 156 Q90 166 46 156 Z" fill="#D3383A" stroke="#4A301F" stroke-width="4"/>
+              <!-- Tangan Melambai -->
+              <ellipse cx="42" cy="116" rx="14" ry="18" fill="#F2B738" stroke="#4A301F" stroke-width="4" transform="rotate(-35 42 116)"/>
+              <ellipse cx="138" cy="116" rx="14" ry="18" fill="#F2B738" stroke="#4A301F" stroke-width="4" transform="rotate(35 138 116)"/>
+              <!-- Kepala Pooh -->
+              <circle cx="52" cy="40" r="16" fill="#F2B738" stroke="#4A301F" stroke-width="4"/>
+              <circle cx="128" cy="40" r="16" fill="#F2B738" stroke="#4A301F" stroke-width="4"/>
+              <ellipse cx="90" cy="72" rx="44" ry="38" fill="#F2B738" stroke="#4A301F" stroke-width="4"/>
+              <circle cx="72" cy="68" r="4" fill="#4A301F"/>
+              <circle cx="108" cy="68" r="4" fill="#4A301F"/>
+              <ellipse cx="90" cy="76" rx="6.5" ry="4.5" fill="#4A301F"/>
+              <path d="M77 88 Q90 98 103 88" fill="none" stroke="#4A301F" stroke-width="3.5" stroke-linecap="round"/>
+              <!-- Topi Ulang Tahun Kecil -->
+              <polygon points="90,8 70,38 110,38" fill="#6D8C5B" stroke="#4A301F" stroke-width="3.5"/>
+              <circle cx="90" cy="8" r="6" fill="#F2B738" stroke="#4A301F" stroke-width="2.5"/>
+            </svg>
+          </div>
+
+          <span class="section-tag">Edisi Spesial Ulang Tahun</span>
+          <h2 class="section-heading">
+            <span id="cover-title-text">Selamat Ulang Tahun,</span>
+            <span id="cover-girlfriend-name" class="cover-name-highlight">Sayang</span>!
+          </h2>
+          <p id="cover-subtitle-text" class="cover-subtitle"></p>
+
+          <!-- Widget Penghitung Hari Bersama -->
+          <div class="days-counter-card">
+            <p class="days-counter-label">Waktu berharga yang sudah kita lewati bersama:</p>
+            <div class="days-grid">
+              <div class="day-unit">
+                <span id="counter-days" class="day-number">0</span>
+                <span class="day-text">Hari</span>
+              </div>
+              <div class="day-unit">
+                <span id="counter-hours" class="day-number">00</span>
+                <span class="day-text">Jam</span>
+              </div>
+              <div class="day-unit">
+                <span id="counter-mins" class="day-number">00</span>
+                <span class="day-text">Menit</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- BAB 2: GALERI FOTO POLAROID -->
+        <section class="scrapbook-section" aria-labelledby="polaroid-heading">
+          <span class="section-tag">Lembaran Kenangan</span>
+          <h2 id="polaroid-heading" class="section-heading">Momen Polaroid Kita</h2>
+          <p>Ketuk setiap foto polaroid untuk melihat gambar lebih jelas dan membaca cerita di baliknya.</p>
+
+          <div id="polaroid-grid" class="polaroid-grid"></div>
+        </section>
+
+        <!-- BAB 3: KUIS TRIVIA KENANGAN -->
+        <section class="scrapbook-section" aria-labelledby="quiz-heading">
+          <span class="section-tag">Tantangan Kecil Pooh</span>
+          <h2 id="quiz-heading" class="section-heading">Kuis Kenangan Kita</h2>
+
+          <div class="quiz-progress-row">
+            <span id="quiz-progress-text" style="font-weight: 700;">Pertanyaan 1 dari 3</span>
+            <div id="sticker-rack" class="sticker-rack" aria-label="Koleksi stiker madu"></div>
+          </div>
+
+          <div class="quiz-question-box">
+            <p id="quiz-question-text" class="quiz-question-text"></p>
+            <div id="quiz-options" class="quiz-options"></div>
+            <p id="quiz-reaction" class="quiz-reaction" aria-live="polite"></p>
+          </div>
+        </section>
+
+        <!-- BAB 4: TOPLES ALASAN SAYANG (TERBUKA SETELAH KUIS SELESAI) -->
+        <section id="chapter-hunny-jar" class="scrapbook-section hidden-chapter" aria-labelledby="jar-heading">
+          <span class="section-tag">Hadiah Stiker Terkumpul</span>
+          <h2 id="jar-heading" class="section-heading">Toples "Reasons Why I Love You"</h2>
+
+          <div class="hunny-jar-stage">
+            <button type="button" id="hunny-jar-btn" class="hunny-jar-btn" aria-label="Ketuk toples madu untuk membaca alasan sayang">
+              <svg width="130" height="140" viewBox="0 0 130 140" aria-hidden="true">
+                <path d="M28 42h74l10 72a16 16 0 0 1-16 18H34a16 16 0 0 1-16-18l10-72z" fill="#F2B738" stroke="#4A301F" stroke-width="4"/>
+                <!-- Tetesan Madu -->
+                <path d="M26 42 Q45 64 60 48 Q75 72 95 45 L102 42 Z" fill="#FFFDF8" opacity="0.4"/>
+                <rect x="24" y="24" width="82" height="18" rx="7" fill="#D3383A" stroke="#4A301F" stroke-width="4"/>
+                <rect x="38" y="68" width="54" height="34" rx="8" fill="#FFFDF8" stroke="#4A301F" stroke-width="3"/>
+                <text x="65" y="90" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="15" font-weight="700" fill="#4A301F">HUNNY</text>
+              </svg>
+            </button>
+
+            <div class="reason-note-card">
+              <p id="reason-text" class="reason-text">Ketuk toples madu di atas untuk mengambil satu catatan sayang!</p>
+              <span id="reason-counter" class="reason-counter"></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- BAB 5: KUE ULANG TAHUN & TIUP LILIN INTERAKTIF -->
+        <section id="chapter-cake" class="scrapbook-section hidden-chapter" aria-labelledby="cake-heading">
+          <span class="section-tag">Momen Spesial</span>
+          <h2 id="cake-heading" class="section-heading">Tiup Lilin Ulang Tahunmu</h2>
+
+          <div class="cake-stage">
+            <button type="button" id="cake-interactive-btn" class="cake-interactive-btn" aria-label="Kue ulang tahun dengan lilin menyala, ketuk untuk meniup lilin">
+              <svg width="200" height="190" viewBox="0 0 200 190" aria-hidden="true">
+                <!-- Asap Lilin (Muncul saat padam) -->
+                <path id="candle-smoke" class="candle-smoke" d="M100 32 Q94 20 102 10 Q108 2 98 -6" fill="none" stroke="#9B8573" stroke-width="3" stroke-linecap="round"/>
+
+                <!-- Api Lilin -->
+                <path id="candle-flame" class="candle-flame" d="M100 12 Q110 26 100 38 Q90 26 100 12 Z" fill="#FF9800" stroke="#D3383A" stroke-width="2"/>
+
+                <!-- Batang Lilin -->
+                <rect x="93" y="38" width="14" height="36" rx="3" fill="#FFFDF8" stroke="#4A301F" stroke-width="3"/>
+                <path d="M93 48l14 6M93 58l14 6" stroke="#D3383A" stroke-width="3"/>
+
+                <!-- Kue Lapis Atas -->
+                <rect x="52" y="74" width="96" height="42" rx="10" fill="#F6C554" stroke="#4A301F" stroke-width="3.5"/>
+                <path d="M52 84 Q66 96 80 84 Q94 96 108 84 Q122 96 136 84 Q144 90 148 84 L148 74 L52 74 Z" fill="#FFFDF8" stroke="#4A301F" stroke-width="3"/>
+
+                <!-- Kue Lapis Bawah -->
+                <rect x="34" y="116" width="132" height="52" rx="12" fill="#E5A93C" stroke="#4A301F" stroke-width="3.5"/>
+                <path d="M34 128 Q50 142 66 128 Q82 142 98 128 Q114 142 130 128 Q146 142 166 128 L166 116 L34 116 Z" fill="#D3383A" stroke="#4A301F" stroke-width="3"/>
+
+                <!-- Piring Kue -->
+                <ellipse cx="100" cy="172" rx="82" ry="10" fill="#FFFDF8" stroke="#4A301F" stroke-width="3.5"/>
+              </svg>
+            </button>
+
+            <p id="cake-status-msg" class="cake-status-msg" aria-live="polite">Buat permohonan dalam hati, lalu tiup lilinnya!</p>
+
+            <div class="candle-actions">
+              <button type="button" id="enable-mic-btn" class="btn-primary">Tiup Pakai Mikrofon</button>
+              <button type="button" id="tap-blow-btn" class="btn-accent">Ketuk untuk Tiup</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- BAB 6: SURAT CINTA RAHASIA -->
+        <section id="chapter-letter" class="scrapbook-section hidden-chapter" aria-labelledby="letter-title">
+          <span class="section-tag">Surat Terakhir</span>
+          <div class="letter-paper">
+            <h2 id="letter-title" class="letter-title"></h2>
+            <div id="letter-body"></div>
+            <p id="letter-closing" class="letter-closing"></p>
+            <p id="letter-sender" class="letter-sender"></p>
+          </div>
+        </section>
+
+        <!-- BAB 7: PHOTOBOOTH BERSAMA HIRONO HARRY POTTER -->
+        <section id="chapter-photobooth" class="scrapbook-section hidden-chapter" aria-labelledby="pb-heading">
+          <span class="section-tag">Kejutan Terakhir</span>
+          <h2 id="pb-heading" class="section-heading">Waktunya Photobooth!</h2>
+          <p class="pb-intro">Sebelum mulai, <strong>ambil dulu kado Hirono Harry Potter dari Ihan</strong> ya! Ajak Hirono-nya buat foto bareng dalam <strong>2 pose lucu</strong>.</p>
+
+          <div class="photobooth-stage">
+            <p id="pb-status" class="pb-status" aria-live="polite">Sudah siap bareng Hirono-nya? Nyalakan kamera atau pilih foto dari galeri.</p>
+
+            <div id="pb-controls-wrap" class="pb-controls-wrap">
+              <div id="pb-camera-box" class="pb-camera-box hidden">
+                <video id="pb-video" class="pb-video" playsinline muted></video>
+                <div id="pb-countdown" class="pb-countdown hidden" aria-live="assertive">3</div>
+              </div>
+
+              <div class="pb-btn-row">
+                <button type="button" id="pb-start-cam-btn" class="btn-primary">Buka Kamera</button>
+                <button type="button" id="pb-capture-btn" class="btn-accent hidden">Ambil Foto 1 (3 Detik)</button>
+                <label for="pb-file-input" class="btn-secondary pb-upload-label">Pilih Foto dari Galeri</label>
+                <input id="pb-file-input" type="file" accept="image/*" multiple class="sr-only">
+              </div>
+            </div>
+
+            <div id="pb-result-wrap" class="pb-result-wrap hidden">
+              <div class="photostrip-preview-wrap">
+                <canvas id="photostrip-canvas" class="photostrip-canvas" aria-label="Hasil photobooth 2 foto Tasya dan Hirono Harry Potter"></canvas>
+              </div>
+
+              <div class="pb-btn-row">
+                <button type="button" id="pb-print-btn" class="btn-primary">Print / Simpan PDF</button>
+                <button type="button" id="pb-download-btn" class="btn-secondary">Download PNG</button>
+                <button type="button" id="pb-wa-btn" class="btn-accent">
+                  <span>Kirim ke Ihan</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/>
+                  </svg>
+                </button>
+                <button type="button" id="pb-retake-btn" class="btn-secondary">Foto Ulang</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="finale-actions">
+            <button type="button" id="replay-btn" class="btn-secondary">Putar Ulang dari Awal</button>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL ZOOM POLAROID -->
+  <div id="polaroid-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modal-date">
+    <div class="modal-card">
+      <button type="button" id="modal-close-btn" class="modal-close-btn" aria-label="Tutup foto polaroid">X</button>
+      <div id="modal-image-box" class="modal-image-box"></div>
+      <h3 id="modal-date" class="modal-date"></h3>
+      <p id="modal-caption" class="modal-caption"></p>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="config.js?v=11"></script>
+  <script src="js/confetti.js"></script>
+  <script src="js/music.js"></script>
+  <script src="js/lockscreen.js?v=7"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/candle.js"></script>
+  <script src="js/photobooth.js?v=11"></script>
+  <script src="js/app.js?v=10"></script>
+</body>
+</html>

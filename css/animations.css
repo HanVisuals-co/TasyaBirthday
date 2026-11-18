@@ -1,0 +1,193 @@
+/* ============================================================================
+   ANIMATIONS & MOTION (Antislop R-19, R-39)
+   ============================================================================ */
+
+/* Gentle Entrance for Scrapbook Sections */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal-in {
+  animation: fadeSlideIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Wrong PIN Shake */
+@keyframes pinShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+
+.shake-error {
+  animation: pinShake 0.4s ease-in-out;
+}
+
+/* Honeybee Ambient Flight */
+.ambient-bee {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  opacity: 0.78;
+  will-change: transform;
+}
+
+@keyframes beeFloatA {
+  0% {
+    transform: translate(-10vw, 18vh) rotate(6deg);
+  }
+  50% {
+    transform: translate(55vw, 10vh) rotate(-4deg);
+  }
+  100% {
+    transform: translate(110vw, 22vh) rotate(8deg);
+  }
+}
+
+@keyframes beeFloatB {
+  0% {
+    transform: translate(108vw, 68vh) scaleX(-1) rotate(5deg);
+  }
+  50% {
+    transform: translate(45vw, 58vh) scaleX(-1) rotate(-6deg);
+  }
+  100% {
+    transform: translate(-12vw, 72vh) scaleX(-1) rotate(4deg);
+  }
+}
+
+.bee-1 {
+  animation: beeFloatA 26s linear infinite;
+}
+
+.bee-2 {
+  animation: beeFloatB 32s linear infinite;
+  animation-delay: -11s;
+}
+
+/* Red Balloon Ambient Sway */
+.ambient-balloon {
+  position: absolute;
+  width: 58px;
+  height: 110px;
+  opacity: 0.85;
+}
+
+@keyframes balloonSway {
+  0%, 100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-16px) rotate(3deg);
+  }
+}
+
+.balloon-left {
+  left: 4%;
+  top: 14%;
+  animation: balloonSway 6.5s ease-in-out infinite;
+}
+
+.balloon-right {
+  right: 4%;
+  top: 22%;
+  animation: balloonSway 7.5s ease-in-out infinite;
+  animation-delay: -2.5s;
+}
+
+/* Candle Flame Flicker */
+@keyframes flameFlicker {
+  0%, 100% {
+    transform: scale(1) rotate(-2deg);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scale(1.08, 0.94) rotate(2deg);
+    opacity: 1;
+  }
+}
+
+.candle-flame {
+  transform-origin: center bottom;
+  animation: flameFlicker 0.85s ease-in-out infinite;
+}
+
+.candle-flame.extinguished {
+  animation: none;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* Candle Smoke Puff */
+@keyframes smokeRise {
+  0% {
+    opacity: 0.75;
+    transform: translateY(0) scale(0.8);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-28px) scale(1.6);
+  }
+}
+
+.candle-smoke {
+  opacity: 0;
+}
+
+.candle-smoke.active {
+  animation: smokeRise 1.4s ease-out forwards;
+}
+
+/* Music Disc Spin */
+@keyframes slowSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.music-spinning {
+  animation: slowSpin 6s linear infinite;
+}
+
+/* Pop-in for Reason Note */
+@keyframes notePop {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.note-pop {
+  animation: notePop 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ============================================================================
+   ACCESSIBILITY: REDUCED MOTION (Antislop R-39)
+   ============================================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .ambient-bee,
+  .ambient-balloon,
+  .candle-flame,
+  .music-spinning {
+    animation: none !important;
+  }
+
+  .reveal-in,
+  .note-pop,
+  .shake-error {
+    animation: none !important;
+    transition: none !important;
+  }
+}
